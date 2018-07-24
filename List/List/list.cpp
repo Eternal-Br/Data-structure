@@ -52,7 +52,7 @@ int LocateElem(SqList L, ElemType e) {
     int temp = 0;
     for (int i = 0; i<L.length; i++) {
         if (L.elem[i] == e) {
-            printf("位置在%d:\n", i + 1);
+            printf("查找的元素位置在%d:\n\n", i + 1);
         }
         else {
             temp++;
@@ -80,7 +80,54 @@ int DeleElem(SqList &L, int i, ElemType &x) {
         L.elem[j - 1] = L.elem[j];
     }
     L.length--;
-    printf("第%d个位置上删除的元素是:%d\n", i, x);
+    printf("删除的第%d个位置上删除的元素是:%d\n\n", i, x);
+    return 0;
+}
+
+int Ergodic(SqList L) {
+    if (!L.length) {
+        printf("表已经空了,没有遍历了！\n\n");
+        return -1;
+    }
+    printf("表中的内容为:");
+    for (int i = 0; i < L.length; i++) {       
+        printf("%4d ", L.elem[i]);       
+    }
+    printf("\n\n");
+    return 0;
+}
+
+ElemType DeleMinElem(SqList &L) {
+    //删除最小元素，假设唯一
+    if (!L.length) {
+        printf("线性表已空！\n\n");
+        exit(1);
+    }
+    int i = 0, j = 0;
+    for (i = 0; i < L.length; i++) {
+        if (L.elem[i] < L.elem[j]) {
+            j = i;
+        }
+    }
+    ElemType temp =  L.elem[j];
+    L.elem[j] = L.elem[i];
+    L.length--;
+    return temp;
+}
+
+int ReverseList(SqList &L) {
+    //逆置顺序表
+    if (!L.length) {
+        printf("线性表已空！\n\n");
+        exit(1);
+    }
+    ElemType temp;
+    for (int i = 0; i < (L.length / 2);i++) {
+        temp = L.elem[i];
+        L.elem[i] = L.elem[L.length - i - 1];
+        L.elem[L.length - i - 1] = temp;
+    }
+    printf("顺序表已经逆置！\n");
     return 0;
 }
 
@@ -95,15 +142,22 @@ int main() {
         ListInsert(L, 1, j);
     }
     printf("在L的表头依次插入1～5:\n");
-    for (int j = 1; j <= 5; j++) {
-        printf("%d ", *(L.elem + j - 1));
-    }
+    Ergodic(L);//遍历顺序表
     printf("插入ok！\n\n");
+    //逆置顺序表测试
+    ReverseList(L);
+    printf("逆置后的线性表如下:\n");
+    Ergodic(L);//遍历顺序表
     //按值查找,定位某个值所在的位置
     LocateElem(L, 7);
+    //删除最小的元素测试
+    printf("此线性表中最小的元素是:%4d\n\n", DeleMinElem(L));
+
     //删除元素测试
     int k = 0;
-    DeleElem(L, 5, k);  
+    DeleElem(L, 2, k);  
+    printf("删除内容后:\n");
+    Ergodic(L);
     //释放动态顺序表
     DestroyList(L);
     getchar();
