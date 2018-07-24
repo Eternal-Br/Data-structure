@@ -23,13 +23,14 @@ int DestroyList(SqList &L) { /* ³õÊ¼Ìõ¼ş£ºË³ĞòÏßĞÔ±íLÒÑ´æÔÚ¡£²Ù×÷½á¹û£ºÏú»ÙË³ĞòÏ
 int ListInsert(SqList &L, int i, ElemType e) {
     /* ³õÊ¼Ìõ¼ş£ºË³ĞòÏßĞÔ±íLÒÑ´æÔÚ£¬1¡Üi¡ÜListLength(L)+1 */
     /* ²Ù×÷½á¹û£ºÔÚLÖĞµÚi¸öÎ»ÖÃÖ®Ç°²åÈëĞÂµÄÊı¾İÔªËØe£¬LµÄ³¤¶È¼Ó1 */
-    ElemType *newbase;
+    ElemType *newbase = NULL;
     if (i<1 || i>L.length + 1) { /* iÖµ²»ºÏ·¨ */
         printf("²åÈëÎ»ÖÃ²»ºÏ·¨£¡/n");
         return -1;
     }
     if (L.length >= L.listsize) {/* µ±Ç°´æ´¢¿Õ¼äÒÑÂú,Ôö¼Ó·ÖÅä */
         newbase = (ElemType*)realloc(L.elem, (L.listsize + LISTINCREMENT) * sizeof(ElemType));
+        //Ê¹ÓÃreallocº¯ÊıĞŞ¸ÄÔ­ÏÈÒÑ¾­·ÖÅäÁËµÄÄÚ´æ¿éµÄ´óĞ¡£¬Èç¹ûÓÃÓÚÀ©´ó£¬Ô­ÏÈµÄÄÚÈİÒÀÈ»±£´æ
         if (!newbase) {
             printf("·ÖÅäÊ§°Ü!\n");
             exit(-2);
@@ -42,6 +43,8 @@ int ListInsert(SqList &L, int i, ElemType e) {
     }
     L.elem[i - 1] = e;
     L.length++; /* ±í³¤Ôö1 */
+    free(newbase);
+    newbase = NULL;
     return 0;
 }
 
@@ -62,6 +65,25 @@ int LocateElem(SqList L, ElemType e) {
     return 0;
 }
 
+int DeleElem(SqList &L, int i, ElemType &x) {
+    //É¾³ıµÚi(1¡Üi¡Ün)¸öÎ»ÖÃÉÏµÄÊı£¨Èç¹û´æÔÚ£©£¬²¢ÓÃx·µ»ØÉ¾³ıµÄÊı
+    if (!L.length) {
+        printf("±íÒÑ¾­¿ÕÁË£¬²»ÄÜÉ¾³ı£¡\n");
+        return -1;
+    }
+    if (i<1 || i>L.length) {
+        printf("É¾³ıÎ»ÖÃ·Ç·¨£¡\n");
+        return -1;
+    }
+    x = L.elem[i - 1];
+    for (int j = i; j < L.length; j++) {
+        L.elem[j - 1] = L.elem[j];
+    }
+    L.length--;
+    printf("µÚ%d¸öÎ»ÖÃÉÏÉ¾³ıµÄÔªËØÊÇ:%d\n", i, x);
+    return 0;
+}
+
 int main() {
     SqList L;
     //³õÊ¼»¯
@@ -79,6 +101,9 @@ int main() {
     printf("²åÈëok£¡\n\n");
     //°´Öµ²éÕÒ,¶¨Î»Ä³¸öÖµËùÔÚµÄÎ»ÖÃ
     LocateElem(L, 7);
+    //É¾³ıÔªËØ²âÊÔ
+    int k = 0;
+    DeleElem(L, 5, k);  
     //ÊÍ·Å¶¯Ì¬Ë³Ğò±í
     DestroyList(L);
     getchar();
