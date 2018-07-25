@@ -14,4 +14,9 @@ typedef struct {
     int length; /* 当前长度 */
     int listsize; /* 当前分配的存储容量(以sizeof(ElemType)为单位) */
 }SqList;
-//测试更改
+
+typedef struct LNode {
+	ElemType data;
+	LNode* next;
+}*LinkList;
+//*LinkList型用于实现头指针，LNode用于实现头节点和普通节点

@@ -131,6 +131,19 @@ int ReverseList(SqList &L) {
     return 0;
 }
 
+int DeleCertainValue(SqList& L, ElemType x) {
+	//删除特定值的元素
+	int k = 0, i = 0;
+	for (i = 0; i < L.length; i++) {
+		if (L.elem[i] != x) {
+			L.elem[k] = L.elem[i];
+			k++;
+		}
+	}
+	L.length = k;
+	return 0;
+}
+
 int main() {
     SqList L;
     //初始化
@@ -162,6 +175,4 @@ int main() {
     DestroyList(L);
     getchar();
 }
-//
-//测试更改
-//测试sourcetree
+
