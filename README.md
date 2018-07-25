@@ -1,5 +1,9 @@
 # Data-structure
-This is a collection of data structure for education.
-������Github�����еĴ���Ϊ�����������ε�������ݽṹ��C���԰棩���������������ݽṹ��C���԰棩�����ڶ��棩�Լ���������ϵ�С�2019�����ݽṹ���и�ϰָ���������ݽṹ������Ҫ�Ĵ�����������±�д��
-Ϊ�˱��ֻ�����������̲�һ�£������о���ʹ����C++��Ӧ�����ͣ����в������ݣ�������ָ�루���в������ݣ���
-����Լ�����������Ϊ��̫�õĵط������˸�����
+
+##This is a collection of data structure for education.
+
+这里以Github上已有的代码为基础，结合严蔚敏《数据结构（C语言版）》和殷人昆《数据结构（C语言版）》（第二版）以及王道考研系列《2019年数据结构考研复习指导》对数据结构部分重要的代码进行了重新编写。
+
+为了保持基本与这基本教材一致，代码中尽量使用了C++的应用类型（进行参数传递）来代替指针（进行参数传递）。
+
+另外对几本书中我认为不太好的地方进行了改正。
