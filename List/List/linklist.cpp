@@ -9,6 +9,7 @@ LinkList CreatLinkList_HeadInsert(LinkList& L) {
 		printf("创建失败！\n\n");
 		exit(-2);
 	}
+	L->data = -1;
 	L->next = NULL;
 	printf("将要头插创建链表，请输入节点的值，输入999结束：\n");
 	scanf("%d", &x);
@@ -19,14 +20,16 @@ LinkList CreatLinkList_HeadInsert(LinkList& L) {
 		L->next = temp;
 		scanf("%d", &x);
 	}
+	printf("创建完毕！\n\n");
 	return L;
 }
 
 LinkList CreatLinkList_TailInsert(LinkList& L) {
 	//尾插法建立单链表，需要引入一个尾指针r
-	int x;
+	ElemType x;
 	LinkList s, r;
 	L = (LinkList)malloc(sizeof(LNode));
+	L->data = -1;
 	r = L;
 	printf("将要尾插创建链表，请输入节点的值，输入999结束：\n");
 	scanf("%d", &x);
@@ -36,7 +39,10 @@ LinkList CreatLinkList_TailInsert(LinkList& L) {
 		s->next = NULL;
 		r->next = s;
 		r = s;
+		scanf("%d",&x);
 	}
+	r->next = NULL;
+	printf("创建完毕！\n\n");
 	return L;
 
 }
@@ -104,11 +110,59 @@ int DeleNode(LinkList& L, int i, ElemType& e) {
 	return e;
 }
 
-int ErgodicL(LinkList& L) {
-	if (L->next== NULL) {
-		printf("	已经是最后一个元素了！\n\n");
+int ErgodicLinkList(LinkList& L) {
+	if (L->next == NULL) {
+		printf("%4d	已经是最后一个元素了！\n\n",L->data);
 		return 0;
 	}
 	printf("%4d", L->data);
-	ErgodicL(L->next);
+	ErgodicLinkList(L->next);
+}
+
+LinkList ReverseLinkList(LinkList& L) {
+	//就地逆置带头结点的链表
+	//方法1：使用三个指针pre, p, r分别只想链表中三个相邻的元素
+	//依次遍历线性表，并将指针反转
+	//LinkList pre, p = L->next, r = p->next;
+	//p->next = NULL;
+	//while (r != NULL) {
+	//	pre = p;
+	//	p = r;
+	//	r = r->next;
+	//	p->next = pre;
+	//}
+	//L->next = p;
+	//return L;
+
+	//方法2：将头节点摘下，从第一个节点开始，依次使用头插法插到头节点的后面
+	LinkList p, r;
+	p = L->next;
+	L->next = NULL;//将头节点摘下
+	while (p != NULL){
+		r = p->next;
+		p->next = L->next;
+		p = r;
+	}
+	return L;
+}
+
+void ReverseOutputLinkList(LinkList L) {
+	//反向输出链表中的元素
+	//至少有三种方法：1.链表逆置，再输出；2.利用栈；3.递归调用
+	//这里写方法3：递归调用
+	//问题是头节点的值怎么处理？？？
+	if (L->next != NULL) {
+		ReverseLinkList(L->next);
+	}
+	printf("%4d", L->data);
+}
+
+int main() {
+	LinkList L1, L2;
+	L1 = CreatLinkList_HeadInsert(L1);
+	printf("\n链表内容如下：\n");
+	ErgodicLinkList(L1);
+	L2 = CreatLinkList_TailInsert(L2);
+	printf("\n链表内容如下：\n");
+	ErgodicLinkList(L2);
 }
