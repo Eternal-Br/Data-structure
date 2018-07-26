@@ -85,6 +85,7 @@ int DeleElem(SqList &L, int i, ElemType &x) {
 }
 
 int Ergodic(SqList L) {
+	//遍历
     if (!L.length) {
         printf("表已经空了,没有遍历了！\n\n");
         return -1;
@@ -144,35 +145,35 @@ int DeleCertainValue(SqList& L, ElemType x) {
 	return 0;
 }
 
-int main() {
-    SqList L;
-    //初始化
-    InitList(L);
-    printf("初始化L后:L.length=%d	L.listsize=%d\n", L.length, L.listsize);
-    printf("初始化ok!\n\n");
-    //插入（头插）
-    for (int j = 1; j <= 5; j++) {
-        ListInsert(L, 1, j);
-    }
-    printf("在L的表头依次插入1～5:\n");
-    Ergodic(L);//遍历顺序表
-    printf("插入ok！\n\n");
-    //逆置顺序表测试
-    ReverseList(L);
-    printf("逆置后的线性表如下:\n");
-    Ergodic(L);//遍历顺序表
-    //按值查找,定位某个值所在的位置
-    LocateElem(L, 7);
-    //删除最小的元素测试
-    printf("此线性表中最小的元素是:%4d\n\n", DeleMinElem(L));
-
-    //删除元素测试
-    int k = 0;
-    DeleElem(L, 2, k);  
-    printf("删除内容后:\n");
-    Ergodic(L);
-    //释放动态顺序表
-    DestroyList(L);
-    getchar();
-}
+//int main() {
+//    SqList L;
+//    //初始化
+//    InitList(L);
+//    printf("初始化L后:L.length=%d	L.listsize=%d\n", L.length, L.listsize);
+//    printf("初始化ok!\n\n");
+//    //插入（头插）
+//    for (int j = 1; j <= 5; j++) {
+//        ListInsert(L, 1, j);
+//    }
+//    printf("在L的表头依次插入1～5:\n");
+//    Ergodic(L);//遍历顺序表
+//    printf("插入ok！\n\n");
+//    //逆置顺序表测试
+//    ReverseList(L);
+//    printf("逆置后的线性表如下:\n");
+//    Ergodic(L);//遍历顺序表
+//    //按值查找,定位某个值所在的位置
+//    LocateElem(L, 7);
+//    //删除最小的元素测试
+//    printf("此线性表中最小的元素是:%4d\n\n", DeleMinElem(L));
+//
+//    //删除元素测试
+//    int k = 0;
+//    DeleElem(L, 2, k);  
+//    printf("删除内容后:\n");
+//    Ergodic(L);
+//    //释放动态顺序表
+//    DestroyList(L);
+//    getchar();
+//}
 
