@@ -111,11 +111,18 @@ int DeleNode(LinkList& L, int i, ElemType& e) {
 }
 
 int ErgodicLinkList(LinkList& L) {
+	//遍历链表
+	//因为链表带头结点，遍历的时候会带上头结点的值，这里头结点的值初始化为-1.
 	if (L->next == NULL) {
-		printf("%4d	已经是最后一个元素了！\n\n",L->data);
+		printf("%4d已经是最后一个元素了！\n\n",L->data);
 		return 0;
 	}
-	printf("%4d", L->data);
+	if(L->data != -1){
+		printf("%4d", L->data);
+	}
+	else{
+		printf("");
+	}
 	ErgodicLinkList(L->next);
 }
 
@@ -141,6 +148,7 @@ LinkList ReverseLinkList(LinkList& L) {
 	while (p != NULL){
 		r = p->next;
 		p->next = L->next;
+		L->next = p;
 		p = r;
 	}
 	return L;
@@ -151,18 +159,36 @@ void ReverseOutputLinkList(LinkList L) {
 	//至少有三种方法：1.链表逆置，再输出；2.利用栈；3.递归调用
 	//这里写方法3：递归调用
 	//问题是头节点的值怎么处理？？？
+	//头结点的值初始化为-1╮(╯-╰)╭好吧…
 	if (L->next != NULL) {
-		ReverseLinkList(L->next);
+		ReverseOutputLinkList(L->next);
 	}
-	printf("%4d", L->data);
+	if(L->data != -1){
+		printf("%4d", L->data);
+	}
+	else{
+		printf("");
+	}
 }
 
 int main() {
-	LinkList L1, L2;
-	L1 = CreatLinkList_HeadInsert(L1);
-	printf("\n链表内容如下：\n");
-	ErgodicLinkList(L1);
+	LinkList L1, L2, L3;
+//	L1 = CreatLinkList_HeadInsert(L1);
+//	printf("\n链表内容如下：\n");
+//	ErgodicLinkList(L1);
 	L2 = CreatLinkList_TailInsert(L2);
 	printf("\n链表内容如下：\n");
 	ErgodicLinkList(L2);
+
+	L3 = ReverseLinkList(L2);
+	printf("\n就地逆置链表元素：\n");
+	ErgodicLinkList(L3);
+
+
+	printf("\n反向输出链表元素：\n");
+	//上面的就地逆置操作是的L2本身已经被逆置，这里要先逆置回来
+	L3 = ReverseLinkList(L3);
+	ReverseOutputLinkList(L3);
+
+
 }
